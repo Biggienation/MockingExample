@@ -51,5 +51,16 @@ public class BookingSystemTest {
                 .hasMessage("Bokning kräver giltiga start- och sluttider samt rum-id");
     }
 
+    @Test
+    @DisplayName("When startTime is before current time thoew exception")
+    void bookRoomStartTimeBeforeCurrentTime() {
+        LocalDateTime startTime = LocalDateTime.now().minusHours(1);
+        LocalDateTime endTime = LocalDateTime.now().plusHours(1);
+        when(timeProvider.getCurrentTime()).thenReturn(LocalDateTime.now());
+        assertThatThrownBy(() -> bookingSystem.bookRoom("1D", startTime, endTime))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Kan inte boka tid i dåtid");
+    }
+
 
 }
