@@ -3,19 +3,20 @@ package com.example.payment;
 import com.example.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingCart {
-    private ArrayList<Item> items;
+    private final List<Item> cart;
 
     public ShoppingCart() {
-        items = new ArrayList<>();
+        cart = new ArrayList<>();
     }
 
-    public void add(Item item) {
-        items.add(item);
+    public void addItem(Item item) {
+        cart.add(item);
     }
 
-    public ArrayList<Item> getItems() {
-        return items;
+    public List<Item> getCart() {
+        return cart;
     }
 }
