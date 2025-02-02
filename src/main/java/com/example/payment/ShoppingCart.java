@@ -37,15 +37,18 @@ public class ShoppingCart {
     }
 
     public BigDecimal getTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Item item : cart) {
-            if (item.discount() == 0) {
-                total = total.add(getBigDecimal(item));
-            } else {
-                total = total.add(getBigDecimal(item, getBigDecimal(item)));
-            }
+        return cart.stream()
+                .map(this :: calculateItemTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private BigDecimal calculateItemTotal(Item item) {
+        BigDecimal itemTotal = item.price().multiply(BigDecimal.valueOf(item.quantity()));
+        if (item.discount() > 0) {
+           BigDecimal discountAmount = itemTotal.multiply(BigDecimal.valueOf((double) item.discount()/100));
+           itemTotal = itemTotal.subtract(discountAmount);
         }
-        return total;
+        return itemTotal;
     }
 
     private static BigDecimal getBigDecimal(Item item) {
