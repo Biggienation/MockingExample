@@ -19,8 +19,10 @@ public class ShoppingCart {
 
     public void deleteItem(Item item) {
         cart.stream().findAny().ifPresent(i ->
-        {i.equals(item);
-        cart.remove(item);});
+        {
+            i.equals(item);
+            cart.remove(item);
+        });
     }
 
     public List<Item> getCart() {
