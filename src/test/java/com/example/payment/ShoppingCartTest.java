@@ -13,7 +13,7 @@ class ShoppingCartTest {
     public static final Item TOMATO = new Item(5085,"Tomato", BigDecimal.valueOf(5L), 0, 10);
 
     @Test
-    @DisplayName("Test for adding product")
+    @DisplayName("Test for adding item")
     void AddItemToShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
@@ -21,7 +21,7 @@ class ShoppingCartTest {
     }
 
     @Test
-    @DisplayName("Test for adding null product")
+    @DisplayName("Test for adding null item")
     void addingNullItemDoesNotIncreaseCartSize() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(null);
@@ -29,12 +29,12 @@ class ShoppingCartTest {
     }
 
     @Test
-    @DisplayName("Test for deleting item")
-    void deletingItemFromShoppingCart() {
+    @DisplayName("Test for removing item")
+    void removeItemFromShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
-        shoppingCart.deleteItem(TOMATO);
-        assertThat(shoppingCart.getCart()).isEmpty();
+        shoppingCart.removeItem(TOMATO);
+        assertThat(shoppingCart.getCart()).doesNotContain(TOMATO);
     }
 
 

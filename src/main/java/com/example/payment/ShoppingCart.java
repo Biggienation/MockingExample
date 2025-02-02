@@ -17,7 +17,7 @@ public class ShoppingCart {
             cart.add(item);
     }
 
-    public void deleteItem(Item item) {
+    public void removeItem(Item item) {
         cart.stream().findAny().ifPresent(i ->
         {
             i.equals(item);
