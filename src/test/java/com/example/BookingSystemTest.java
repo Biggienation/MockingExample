@@ -77,38 +77,57 @@ public class BookingSystemTest {
     }
 
     @Test
-    @DisplayName("Throws exception when roomRepository cant find roomId")
+    @DisplayName("Throws exception when cant find roomId")
     void cantFindRoomId() {
         when(roomRepository.findById("1D")).thenReturn(Optional.empty());
+        when(timeProvider.getCurrentTime()).thenReturn(LocalDateTime.now());
         assertThatThrownBy(() -> bookingSystem.bookRoom("1D",
-                startTime.plusHours(ONE_HOUR), endTime.plusHours(ONE_HOUR)))
+                startTime.plusHours(ONE_HOUR), endTime.plusHours( ONE_HOUR)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Rummet existerar inte");
     }
 
+    @Test
+    @DisplayName("bookRoom returns false when room is not available")
+    void bookRoomReturnsFalseWhenRoomIsNotAvailable() {
+        Room room = mock(Room.class);
+        when(timeProvider.getCurrentTime()).thenReturn(LocalDateTime.now());
+        when(roomRepository.findById("1D")).thenReturn(Optional.of(room));
+        when(room.isAvailable(startTime.plusHours(ONE_HOUR), endTime.plusHours(ONE_HOUR))).thenReturn(false);
+        assertThat(bookingSystem.bookRoom("1D",startTime.plusHours(ONE_HOUR),endTime.plusHours(ONE_HOUR))).isFalse();
 
+    }
+
+    @Test
+    @DisplayName("bookRoom returns ture when room is available")
+    void bookRoomReturnsTrueWhenRoomIsAvailable() {
+        Room room = mock(Room.class);
+        when(timeProvider.getCurrentTime()).thenReturn(LocalDateTime.now());
+        when(roomRepository.findById("1D")).thenReturn(Optional.of(room));
+        when(room.isAvailable(startTime.plusHours(ONE_HOUR), endTime.plusHours(ONE_HOUR))).thenReturn(true);
+        assertThat(bookingSystem.bookRoom("1D",startTime.plusHours(ONE_HOUR),endTime.plusHours(ONE_HOUR))).isTrue();
+    }
     //_____
     @Test
-    void getAvailableRooms_ShouldThrowException_WhenStartTimeIsNull() {
-        LocalDateTime endTime = LocalDateTime.now().plusHours(1);
-        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(null, endTime))
+    @DisplayName("getAvailableRooms throws exception when startTime is null")
+    void availableRoomsStartTimeIsNull() {
+        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(null, endTime.plusHours(ONE_HOUR)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Måste ange både start- och sluttid");
     }
 
     @Test
-    void getAvailableRooms_ShouldThrowException_WhenEndTimeIsNull() {
-        LocalDateTime startTime = LocalDateTime.now().plusHours(1);
-        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(startTime, null))
+    @DisplayName("getAvailableRooms throws exception when endTime is null")
+    void availableRoomsEndTimeIsNull() {
+        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(startTime.plusHours(ONE_HOUR), null))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Måste ange både start- och sluttid");
     }
 
     @Test
-    void getAvailableRooms_ShouldThrowException_WhenEndTimeIsBeforeStartTime() {
-        LocalDateTime startTime = LocalDateTime.now().plusHours(1);
-        LocalDateTime endTime = startTime.minusHours(1);
-        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(startTime, endTime))
+    @DisplayName("getAvailableRooms throws exception when startTime is before endTime")
+    void availableRoomsStartTimeBeforeEndTime() {
+        assertThatThrownBy(() -> bookingSystem.getAvailableRooms(startTime.plusHours(ONE_HOUR), endTime.minusHours(ONE_HOUR)))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("Sluttid måste vara efter starttid");
     }
