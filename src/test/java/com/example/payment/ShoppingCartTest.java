@@ -14,7 +14,7 @@ class ShoppingCartTest {
 
     @Test
     @DisplayName("Test for adding product")
-    void testAddProduct() {
+    void AddProduct() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
         assertThat(shoppingCart.getCart()).contains(TOMATO);
@@ -27,4 +27,6 @@ class ShoppingCartTest {
         shoppingCart.addItem(null);
         assertThat(shoppingCart.getCart()).isEmpty();
     }
+
+
 }

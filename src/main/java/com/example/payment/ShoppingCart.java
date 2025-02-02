@@ -13,7 +13,8 @@ public class ShoppingCart {
     }
 
     public void addItem(Item item) {
-        cart.add(item);
+        if (item != null)
+            cart.add(item);
     }
 
     public List<Item> getCart() {
