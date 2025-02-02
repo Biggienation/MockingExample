@@ -1,6 +1,4 @@
-package com.example.payment;
-
-import com.example.Item;
+package com.example;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
