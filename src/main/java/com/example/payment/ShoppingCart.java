@@ -27,9 +27,12 @@ public class ShoppingCart {
     }
 
     public BigDecimal getTotal() {
-        cart.forEach(item -> {
-        });
-        return null;
+        BigDecimal total = BigDecimal.ZERO;
+        for (Item item : cart) {
+            BigDecimal multiply = item.price().multiply(BigDecimal.valueOf(item.quantity()));
+            total = total.add(multiply);
+        }
+        return total;
     }
 
     public List<Item> getCart() {

@@ -44,7 +44,7 @@ class ShoppingCartTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
         shoppingCart.addItem(APPLE);
-        assertThat(shoppingCart.getTotal()).isEqualTo(65);
+        assertThat(shoppingCart.getTotal()).isEqualTo(BigDecimal.valueOf(65));
     }
 
 
