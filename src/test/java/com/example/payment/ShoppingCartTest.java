@@ -10,8 +10,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 class ShoppingCartTest {
-    public static final Item TOMATO = new Item(5085,"Tomato", BigDecimal.valueOf(5L), 0, 10);
-    public static final Item APPLE = new Item(1500,"Apple", BigDecimal.valueOf(15L), 0, 1);
+    public static final Item TOMATO = new Item(5085, "Tomato", BigDecimal.valueOf(5L), 0, 10);
+    public static final Item APPLE = new Item(1500, "Apple", BigDecimal.valueOf(15L), 0, 1);
 
     @Test
     @DisplayName("Test for adding item")
@@ -53,10 +53,9 @@ class ShoppingCartTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
         shoppingCart.addItem(APPLE);
-        shoppingCart.addItem(new Item(668,"Cucomber", BigDecimal.valueOf(10L), 50, 2));
+        shoppingCart.addItem(new Item(668, "Cucumber", BigDecimal.valueOf(10L), 50, 2));
         assertThat(shoppingCart.getTotal()).isEqualTo(BigDecimal.valueOf(75.0));
     }
-
 
 
 }

@@ -29,14 +29,21 @@ public class ShoppingCart {
     public BigDecimal getTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (Item item : cart) {
-            BigDecimal multiply = item.price().multiply(BigDecimal.valueOf(item.quantity()));
-            if (item.discount() == 0){
-                total = total.add(multiply);}
-            else {
-            BigDecimal multiplyWithDiscount = multiply.multiply(BigDecimal.valueOf(((double) item.discount()/100)));
-            total = total.add(multiplyWithDiscount);}
+            if (item.discount() == 0) {
+                total = total.add(getBigDecimal(item));
+            } else {
+                total = total.add(getBigDecimal(item, getBigDecimal(item)));
+            }
         }
         return total;
+    }
+
+    private static BigDecimal getBigDecimal(Item item) {
+        return item.price().multiply(BigDecimal.valueOf(item.quantity()));
+    }
+
+    private static BigDecimal getBigDecimal(Item item, BigDecimal multiply) {
+         return multiply.multiply(BigDecimal.valueOf(((double) item.discount() / 100)));
     }
 
     public List<Item> getCart() {
