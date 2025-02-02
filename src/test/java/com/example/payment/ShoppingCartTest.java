@@ -19,4 +19,12 @@ class ShoppingCartTest {
         shoppingCart.addItem(TOMATO);
         assertThat(shoppingCart.getCart()).contains(TOMATO);
     }
+
+    @Test
+    @DisplayName("Test for adding null product")
+    void addingNullItemDoesNotIncreaseCartSize() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addItem(null);
+        assertThat(shoppingCart.getCart()).isEmpty();
+    }
 }
