@@ -36,7 +36,7 @@ public class ShoppingCart {
         cart.removeIf(i -> i.barcode() == item.barcode());
     }
 
-    public BigDecimal getTotal() {
+    public BigDecimal getItemTotal() {
         return cart.stream()
                 .map(this :: calculateItemTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -49,14 +49,6 @@ public class ShoppingCart {
            itemTotal = itemTotal.subtract(discountAmount);
         }
         return itemTotal;
-    }
-
-    private static BigDecimal getBigDecimal(Item item) {
-        return item.price().multiply(BigDecimal.valueOf(item.quantity()));
-    }
-
-    private static BigDecimal getBigDecimal(Item item, BigDecimal multiply) {
-        return multiply.multiply(BigDecimal.valueOf(((double) item.discount() / 100)));
     }
 
     public List<Item> getCart() {
