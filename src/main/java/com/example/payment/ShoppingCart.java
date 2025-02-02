@@ -5,6 +5,7 @@ import com.example.Item;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ShoppingCart {
     private final List<Item> cart;
@@ -18,15 +19,28 @@ public class ShoppingCart {
             return;
         }
 
-        for (Item i : cart) {
-            if (i.barcode() == item.barcode()) {
-                cart.add(new Item(i.barcode(), i.name(), i.price(), item.discount(), i.quantity() + item.quantity()));
-                cart.remove(i);
-                return;
-            }
+        Optional<Item> existingItem = findItemByBarCode(item.barcode());
+        if (existingItem.isPresent()) {
+            updateItemQuantity(existingItem.get(), item.quantity());
+        } else {
+            cart.add(item);
         }
+    }
 
-        cart.add(item);
+    private Optional<Item> findItemByBarCode(int barcode) {
+        return cart.stream()
+                .filter(item -> item.barcode() == barcode)
+                .findFirst();
+    }
+
+    private void updateItemQuantity(Item itemFormCart, int additionalQuantity) {
+        Item updatedItem = new Item(itemFormCart.barcode(),
+                itemFormCart.name(),
+                itemFormCart.price(),
+                itemFormCart.discount(),
+                itemFormCart.quantity() + additionalQuantity);
+        cart.remove(itemFormCart);
+        cart.add(updatedItem);
     }
 
     public void removeItem(Item item) {
