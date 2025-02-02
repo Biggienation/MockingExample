@@ -30,11 +30,10 @@ public class ShoppingCart {
     }
 
     public void removeItem(Item item) {
-        cart.stream().findAny().ifPresent(i ->
-        {
-            i.equals(item);
-            cart.remove(item);
-        });
+        if (item == null) {
+            return;
+        }
+        cart.removeIf(i -> i.barcode() == item.barcode());
     }
 
     public BigDecimal getTotal() {
