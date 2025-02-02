@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 class ShoppingCartTest {
-    public static final Item TOMATO = new Item("Tomato", BigDecimal.valueOf(5L), 0, 10);
+    public static final Item TOMATO = new Item(5085,"Tomato", BigDecimal.valueOf(5L), 0, 10);
 
     @Test
     @DisplayName("Test for adding product")
