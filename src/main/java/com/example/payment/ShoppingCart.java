@@ -30,7 +30,11 @@ public class ShoppingCart {
         BigDecimal total = BigDecimal.ZERO;
         for (Item item : cart) {
             BigDecimal multiply = item.price().multiply(BigDecimal.valueOf(item.quantity()));
-            total = total.add(multiply);
+            if (item.discount() == 0){
+                total = total.add(multiply);}
+            else {
+            BigDecimal multiplyWithDiscount = multiply.multiply(BigDecimal.valueOf(((double) item.discount()/100)));
+            total = total.add(multiplyWithDiscount);}
         }
         return total;
     }
