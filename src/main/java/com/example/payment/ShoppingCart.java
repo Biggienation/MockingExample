@@ -14,8 +14,19 @@ public class ShoppingCart {
     }
 
     public void addItem(Item item) {
-        if (item != null)
-            cart.add(item);
+        if (item == null) {
+            return;
+        }
+
+        for (Item i : cart) {
+            if (i.barcode() == item.barcode()) {
+                cart.add(new Item(i.barcode(), i.name(), i.price(), item.discount(), i.quantity() + item.quantity()));
+                cart.remove(i);
+                return;
+            }
+        }
+
+        cart.add(item);
     }
 
     public void removeItem(Item item) {
@@ -43,7 +54,7 @@ public class ShoppingCart {
     }
 
     private static BigDecimal getBigDecimal(Item item, BigDecimal multiply) {
-         return multiply.multiply(BigDecimal.valueOf(((double) item.discount() / 100)));
+        return multiply.multiply(BigDecimal.valueOf(((double) item.discount() / 100)));
     }
 
     public List<Item> getCart() {
