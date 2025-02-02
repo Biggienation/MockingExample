@@ -2,6 +2,7 @@ package com.example.payment;
 
 import com.example.Item;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class ShoppingCart {
             i.equals(item);
             cart.remove(item);
         });
+    }
+
+    public BigDecimal getTotal() {
+        cart.forEach(item -> {
+        });
+        return null;
     }
 
     public List<Item> getCart() {
