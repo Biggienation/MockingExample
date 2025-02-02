@@ -44,7 +44,7 @@ class ShoppingCartTest {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
         shoppingCart.addItem(APPLE);
-        assertThat(shoppingCart.getTotal());
+        assertThat(shoppingCart.getTotal()).isEqualTo(65);
     }
 
 
