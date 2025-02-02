@@ -57,5 +57,14 @@ class ShoppingCartTest {
         assertThat(shoppingCart.getTotal()).isEqualTo(BigDecimal.valueOf(75.0));
     }
 
+    @Test
+    @DisplayName("Adding more tomatoes")
+    void addingMoreTomatoesShouldIncreaseItemQuantity() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addItem(TOMATO);
+        shoppingCart.addItem(new Item(5085, "Tomato", BigDecimal.valueOf(5L), 0, 10));
+        assertThat(shoppingCart.getCart().getFirst().quantity()).isEqualTo(20);
+    }
+
 
 }
