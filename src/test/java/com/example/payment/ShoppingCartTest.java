@@ -33,7 +33,7 @@ class ShoppingCartTest {
     void deletingItemFromShoppingCart() {
         ShoppingCart shoppingCart = new ShoppingCart();
         shoppingCart.addItem(TOMATO);
-        ShoppingCart.deleteItem(TOMATO);
+        shoppingCart.deleteItem(TOMATO);
         assertThat(shoppingCart.getCart()).isEmpty();
     }
 

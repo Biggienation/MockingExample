@@ -17,6 +17,12 @@ public class ShoppingCart {
             cart.add(item);
     }
 
+    public void deleteItem(Item item) {
+        cart.stream().findAny().ifPresent(i ->
+        {i.equals(item);
+        cart.remove(item);});
+    }
+
     public List<Item> getCart() {
         return cart;
     }
