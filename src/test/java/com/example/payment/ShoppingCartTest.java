@@ -28,5 +28,14 @@ class ShoppingCartTest {
         assertThat(shoppingCart.getCart()).isEmpty();
     }
 
+    @Test
+    @DisplayName("Test for deleting item")
+    void deletingItemFromShoppingCart() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.addItem(TOMATO);
+        ShoppingCart.deleteItem(TOMATO);
+        assertThat(shoppingCart.getCart()).isEmpty();
+    }
+
 
 }
